@@ -67,6 +67,7 @@ function App() {
               <MenuItem value="fr">French</MenuItem>
               <MenuItem value="es">Spanish</MenuItem>
               <MenuItem value="de">German</MenuItem>
+              <MenuItem value="morse">Morse Code</MenuItem>
             </Select>
           </FormControl>
         </Grid>

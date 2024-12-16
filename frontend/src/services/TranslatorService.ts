@@ -21,7 +21,8 @@ export default class TranslatorService {
     );
 
     const data = await response.json();
-    return data[0][0][0];
+
+    return data[0];
   }
 
   static async translateToEnglish(
@@ -32,12 +33,19 @@ export default class TranslatorService {
       `${this.URL}single?client=gtx&sl=${source}&tl=en&dt=t&q=${text}`
     );
     const data = await response.json();
-    return data[0][0][0];
+    console.log(data);
+    return data[0];
   }
 
   static async translateEnglishToMorse(text: string): Promise<string> {
-    const response = await fetch(`${this.MORSE_URL}?text=${text}`);
+    const response = await fetch(`${this.MORSE_URL}?text=${text}`, {
+      mode: "no-cors",
+    });
+    console.log(response);
+
     const data = await response.json();
+    console.log(data);
+
     return data.contents.translated;
   }
 }
