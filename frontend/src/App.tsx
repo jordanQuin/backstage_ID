@@ -31,6 +31,7 @@ function App() {
   
 
   const isGifUrl = (url: string) => {
+    if (!url) return false;
     return url.startsWith("https://media");
   };
 
