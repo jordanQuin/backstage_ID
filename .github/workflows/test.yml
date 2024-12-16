@@ -1,11 +1,29 @@
-name: Echo Test
+name: CI
 
-on: push
+on:
+  push:
+    branches:
+      - github-action
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  echo-test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
 
-      - name: Echo test
-        run: echo "test"  
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      with:
+      projectKey: your_project_key
+      organization: your_organization
+      env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
