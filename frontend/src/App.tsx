@@ -26,6 +26,10 @@ function App() {
     setTranslatedText(result);
   };
 
+  const isGifUrl = (url: string) => {
+    return url.startsWith("https://media");
+  };
+
   return (
     <div style={{ padding: 20 }}>
       <Grid container spacing={2}>
@@ -67,7 +71,7 @@ function App() {
               <MenuItem value="fr">French</MenuItem>
               <MenuItem value="es">Spanish</MenuItem>
               <MenuItem value="de">German</MenuItem>
-              <MenuItem value="morse">Morse Code</MenuItem>
+              <MenuItem value="gif">Gif</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -77,17 +81,25 @@ function App() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Translated Text"
-            multiline
-            rows={4}
-            variant="outlined"
-            fullWidth
-            value={translatedText}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
+          {isGifUrl(translatedText) ? (
+            <img
+              src={translatedText}
+              alt="Translated Gif"
+              style={{ maxWidth: "100%" }}
+            />
+          ) : (
+            <TextField
+              label="Translated Text"
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
+              value={translatedText}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          )}
         </Grid>
       </Grid>
     </div>

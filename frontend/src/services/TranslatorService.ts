@@ -1,18 +1,20 @@
 export default class TranslatorService {
   static URL = "https://translate.googleapis.com/translate_a/";
-  static MORSE_URL = "http://api.funtranslations.com/translate/morse";
+  static GIPHY_URL = "https://api.giphy.com/v1/gifs/search";
+  static GIPHY_KEY = "SYuQlNJE9C0WHIe6QFmFGqln9tQQ8SqX";
 
   static async translate(
     text: string,
     target: string,
     source: string = "auto"
   ): Promise<string> {
-    if (target == "morse") {
+    if (target == "gif") {
       if (source == "en") {
-        return this.translateEnglishToMorse(text);
+        return this.translateEnglishToGif(text);
       } else {
         const englishText = await this.translateToEnglish(text, source);
-        return this.translateEnglishToMorse(englishText);
+
+        return this.translateEnglishToGif(englishText);
       }
     }
 
@@ -33,19 +35,16 @@ export default class TranslatorService {
       `${this.URL}single?client=gtx&sl=${source}&tl=en&dt=t&q=${text}`
     );
     const data = await response.json();
-    console.log(data);
-    return data[0];
+    return data[0][0][0];
   }
 
-  static async translateEnglishToMorse(text: string): Promise<string> {
-    const response = await fetch(`${this.MORSE_URL}?text=${text}`, {
-      mode: "no-cors",
-    });
-    console.log(response);
+  static async translateEnglishToGif(text: string): Promise<string> {
+    const response = await fetch(
+      `${this.GIPHY_URL}?api_key=${this.GIPHY_KEY}&q=${text}&limit=5`
+    );
 
     const data = await response.json();
-    console.log(data);
-
-    return data.contents.translated;
+    const randomIndex = Math.floor(Math.random() * data.data.length);
+    return data.data[randomIndex].images.original.url;
   }
 }
