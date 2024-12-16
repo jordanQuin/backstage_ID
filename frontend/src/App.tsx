@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { DevQuote } from '../../ynovtranslate/@parsifal-m/plugin-dev-quotes-homepage';
-
 import "./App.css";
 import {
   TextField,
@@ -9,7 +7,6 @@ import {
   Select,
   FormControl,
   InputLabel,
-  
   Grid,
 } from "@mui/material";
 import TranslatorService from "./services/TranslatorService";
@@ -19,7 +16,7 @@ function App() {
   const [translatedText, setTranslatedText] = useState("");
   const [sourceLang, setSourceLang] = useState("en");
   const [targetLang, setTargetLang] = useState("fr");
-  
+
   const handleTranslate = async () => {
     const result = await TranslatorService.translate(
       inputText,
@@ -28,7 +25,6 @@ function App() {
     );
     setTranslatedText(result);
   };
-  
 
   const isGifUrl = (url: string) => {
     if (!url) return false;
@@ -36,9 +32,6 @@ function App() {
   };
 
   return (
-
-   
-
     <div style={{ padding: 20 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -110,29 +103,6 @@ function App() {
           )}
         </Grid>
       </Grid>
-      <Grid container spacing={3} alignItems="stretch">
-      {entityWarningContent}
-      <Grid item md={6}>
-        <EntityAboutCard variant="gridItem" />
-      </Grid>
-      <Grid item md={6} xs={12}>
-        <EntityCatalogGraphCard variant="gridItem" height={400} />
-      </Grid>
-      <Grid item md={4} xs={12}>
-        <DevQuote />
-      </Grid>
-  
-      <Grid item md={6} xs={12}>
-        <OpaMetadataAnalysisCard />
-      </Grid>
-  
-      <Grid item md={4} xs={12}>
-        <EntityLinksCard />
-      </Grid>
-      <Grid item md={8} xs={12}>
-        <EntityHasSubcomponentsCard variant="gridItem" />
-      </Grid>
-    </Grid>
     </div>
   );
 }
