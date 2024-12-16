@@ -11,3 +11,13 @@ spec:
   type: website
   owner: john@example.com
   lifecycle: experimental
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: translate
+  description: Traduire un texte en plusieurs langues
+spec:
+  type: openapi
+  lifecycle: production
+  owner: petstore@example.com
